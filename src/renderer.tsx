@@ -31,13 +31,16 @@ import "./index.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import HomePage from "./pages/home/page";
+import RootLayout from "./pages/layout";
 
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
   <BrowserRouter>
     <Routes>
-      <Route index element={<HomePage />}></Route>
+      <Route element={<RootLayout />}>
+        <Route index element={<HomePage />}></Route>
+      </Route>
     </Routes>
   </BrowserRouter>
 );
