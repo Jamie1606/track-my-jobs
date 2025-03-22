@@ -90,3 +90,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Visual Studio Code Debugger
+.vscode/launch.json

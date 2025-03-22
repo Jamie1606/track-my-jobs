@@ -26,6 +26,18 @@
  * ```
  */
 
-import './index.css';
+import "./index.css";
 
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router";
+import HomePage from "./pages/home/page";
+
+const root = document.getElementById("root");
+
+ReactDOM.createRoot(root).render(
+  <BrowserRouter>
+    <Routes>
+      <Route index element={<HomePage />}></Route>
+    </Routes>
+  </BrowserRouter>
+);
