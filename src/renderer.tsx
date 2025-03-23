@@ -30,8 +30,17 @@ import "./index.css";
 
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
-import HomePage from "./pages/home/page";
+import DashboardPage from "./pages/dashboard/page";
 import RootLayout from "./pages/layout";
+import URL from "./constant/url";
+import JobPage from "./pages/job/page";
+import PeoplePage from "./pages/people/page";
+import SettingPage from "./pages/setting/page";
+import TaskPage from "./pages/task/page";
+import ExtensionPage from "./pages/extension/page";
+import CalendarPage from "./pages/calendar/page";
+import ArchivePage from "./pages/archive/page";
+import AboutPage from "./pages/about/page";
 
 const root = document.getElementById("root");
 
@@ -39,7 +48,15 @@ ReactDOM.createRoot(root).render(
   <BrowserRouter>
     <Routes>
       <Route element={<RootLayout />}>
-        <Route index element={<HomePage />}></Route>
+        <Route index element={<DashboardPage />} />
+        <Route path={URL.JOB} element={<JobPage />} />
+        <Route path={URL.PEOPLE} element={<PeoplePage />} />
+        <Route path={URL.TASK} element={<TaskPage />} />
+        <Route path={URL.CALENDAR} element={<CalendarPage />} />
+        <Route path={URL.ARCHIVE} element={<ArchivePage />} />
+        <Route path={URL.EXTENSION} element={<ExtensionPage />} />
+        <Route path={URL.SETTING} element={<SettingPage />} />
+        <Route path={URL.ABOUT} element={<AboutPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

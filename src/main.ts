@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, shell } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
 
@@ -8,20 +8,16 @@ if (started) {
 }
 
 const createWindow = () => {
-  // Get the primary display's work area size
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: width,
-    height: height,
+    width: 1200,
+    height: 700,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    resizable: false,
     maximizable: false,
-    minimizable: true,
     fullscreenable: false,
+    resizable: false,
   });
 
   mainWindow.setMenuBarVisibility(false);
@@ -33,8 +29,13 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: "deny" };
+  });
+
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

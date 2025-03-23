@@ -1,62 +1,37 @@
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import SidebarItem from "@/components/shared/sidebar-item";
 import URL from "@/constant/url";
-import { LayoutDashboardIcon, SettingsIcon } from "lucide-react";
+import ArchiveIcon from "@/icons/archive-icon";
+import CalendarIcon from "@/icons/calendar-icon";
+import DashboardIcon from "@/icons/dashbard-icon";
+import ExtensionIcon from "@/icons/extension-icon";
+import InfoIcon from "@/icons/info-icon";
+import PersonIcon from "@/icons/person-icon";
+import SettingIcon from "@/icons/setting-icon";
+import TaskIcon from "@/icons/task-icon";
+import WorkIcon from "@/icons/work-icon";
 import { Link, Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
-    <div className="flex w-screen h-screen">
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader className="mt-2">
-            <Link to={URL.HOME} className="text-center font-bold text-xl tracking-wider">
-              TRACK MY JOBS
-            </Link>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to={URL.HOME}>
-                        <LayoutDashboardIcon />
-                        <span>Dashboard</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to={URL.HOME}>Dashboard</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to={URL.HOME}>Dashboard</Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter>
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <SidebarMenuButton asChild>
-                  <Link to={URL.HOME}>
-                    <SettingsIcon />
-                    <span>Setting</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarFooter>
-        </Sidebar>
-        <main>
-          <SidebarTrigger className="cursor-pointer" />
-          <Outlet />
-        </main>
-      </SidebarProvider>
+    <div className="flex w-screen h-screen max-h-screen text-[#1e293b] bg-[#f8fafc]">
+      <div className="flex flex-col h-full w-[230px] shadow-lg">
+        <div className="flex flex-col min-h-0 overflow-y-auto p-2 gap-y-2">
+          <SidebarItem url={URL.DASHBOARD} label="Dashboard" icon={DashboardIcon} />
+          <SidebarItem url={URL.JOB} label="Jobs" icon={WorkIcon} noti={11} />
+          <SidebarItem url={URL.PEOPLE} label="People" icon={PersonIcon} />
+          <SidebarItem url={URL.TASK} label="Tasks" icon={TaskIcon} />
+          <SidebarItem url={URL.ARCHIVE} label="Archive" icon={ArchiveIcon} />
+          <SidebarItem url={URL.CALENDAR} label="Calendar" icon={CalendarIcon} />
+          <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} />
+        </div>
+        <div className="mt-auto flex flex-col p-2 gap-y-2 border-t">
+          <SidebarItem url={URL.SETTING} label="Setting" icon={SettingIcon} />
+          <SidebarItem url={URL.ABOUT} label="About" icon={InfoIcon} />
+        </div>
+      </div>
+      <div className="flex w-full p-2">
+        <Outlet />
+      </div>
     </div>
   );
 };
