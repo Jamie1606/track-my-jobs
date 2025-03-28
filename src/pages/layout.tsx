@@ -9,7 +9,7 @@ import PersonIcon from "@/icons/person-icon";
 import SettingIcon from "@/icons/setting-icon";
 import TaskIcon from "@/icons/task-icon";
 import WorkIcon from "@/icons/work-icon";
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (

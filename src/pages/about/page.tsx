@@ -8,8 +8,7 @@ const AboutPage = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <label className="">This is About Page</label>
-      <Button>Click Me</Button>
+     
     </div>
   );
 };

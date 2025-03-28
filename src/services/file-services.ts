@@ -13,10 +13,10 @@ export function loadSettings() {
       settings.WIDTH = parsedData.WIDTH ?? settings.WIDTH;
       settings.HEIGHT = parsedData.HEIGHT ?? settings.HEIGHT;
       settings.UI_SCALING = parsedData.UI_SCALING ?? settings.UI_SCALING;
-      logger.info(`Successfully loaded setting data from ${filePath}`, { label: "file-service" });
+      logger.info(`Successfully loaded setting data.`, { label: "file-service" });
     }
   } catch (err) {
-    logger.error("Failed to load settings", { label: "file-service", stack: err });
+    logger.error("Failed to load settings.", { label: "file-service", stack: err });
   }
 }
 
@@ -26,6 +26,6 @@ export function saveSettings() {
   try {
     fs.writeFileSync(filePath, JSON.stringify(settings), "utf-8");
   } catch (err) {
-    logger.error("Failed to save settings", { label: "file-service", stack: err });
+    logger.error("Failed to save settings.", { label: "file-service", stack: err });
   }
 }

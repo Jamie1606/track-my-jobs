@@ -3,6 +3,7 @@ import path from "node:path";
 import started from "electron-squirrel-startup";
 import { loadSettings } from "./services/file-services";
 import { settings } from "./records";
+import { deleteOldLogs } from "./services/log-services";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -36,8 +37,12 @@ const createWindow = () => {
     return { action: "deny" };
   });
 
+  mainWindow.webContents.once("did-finish-load", () => {
+    mainWindow.webContents.send("update-setting", settings);
+  });
+
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -45,7 +50,7 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
   loadSettings();
-  console.log(settings);
+  deleteOldLogs(7);
   createWindow();
 });
 

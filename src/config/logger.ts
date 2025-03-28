@@ -31,6 +31,7 @@ const logger = winston.createLogger({
   level: "info",
   format: fileFormat,
   transports: [new winston.transports.File({ filename: path.join(PATH.LOG_FOLDER, `${PATH.LOG_FILE_NAME}-${PATH.LOG_FILE_SUFFIX}.log`) }), new winston.transports.File({ filename: path.join(PATH.LOG_FOLDER, `${PATH.ERROR_LOG_FILE_NAME}-${PATH.LOG_FILE_SUFFIX}.log`), level: "error" })],
+  exceptionHandlers: [new winston.transports.File({ filename: path.join(PATH.LOG_FOLDER, `${PATH.EXCEPTION_LOG_FILE_NAME}.log`) })],
 });
 
 if (process.env.NODE_ENV !== "production") {

@@ -7,6 +7,7 @@ const PATH = {
   LOG_FILE_SUFFIX: new Date().toISOString().slice(0, 10),
   LOG_FILE_NAME: "log",
   ERROR_LOG_FILE_NAME: "error-log",
+  EXCEPTION_LOG_FILE_NAME: "exception-log",
 } as const;
 
 export default PATH;
