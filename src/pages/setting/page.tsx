@@ -12,10 +12,6 @@ const SettingPage = () => {
     document.title = "Track My Jobs | Setting";
   }, []);
 
-  useEffect(() => {
-    console.log(width);
-  }, [width]);
-
   return (
     <div className="flex flex-col w-full px-4 mt-2">
       <h1 className="text-[25px] font-bold">Settings</h1>
