@@ -8,8 +8,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <label className="">This is Home Page</label>
-      <Button>Click Me</Button>
+      
     </div>
   );
 };

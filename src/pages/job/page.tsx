@@ -1,15 +1,34 @@
-import DatePicker from "@/components/shared/date-picker";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AddIcon from "@/icons/add-icon";
 import TableViewIcon from "@/icons/table-view-icon";
 import ViewListIcon from "@/icons/view-list-icon";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import JobForm from "./job-form";
+import CustomPagination from "@/components/shared/custom-pagination";
+import { DataTable } from "@/components/shared/data-table";
+import { columns, Payment } from "./columns";
 
 const JobPage = () => {
+  const [view, setView] = useState<"table" | "list">("table");
+  const data: Payment[] = [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+  ];
+
   useEffect(() => {
-    document.title = "Track My Jobs | Job";
+    document.title = "Track My Jobs | Job Applications";
   }, []);
 
   return (
@@ -20,63 +39,27 @@ const JobPage = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center w-full">
             {/* search bar */}
-            <Input className="max-w-96 mr-4" />
+            <Input className="max-w-96 mr-3" />
 
             {/* view options */}
-            <Button variant="icon" size="icon">
-              <TableViewIcon width={22} height={22} fill="#1e293b" />
-            </Button>
-            <Button variant="icon" size="icon">
-              <ViewListIcon width={22} height={22} fill="#1e293b" />
+            <Button variant="icon" size="icon" onClick={() => setView((prev) => (prev === "table" ? "list" : "table"))} title={view === "table" ? "List View" : "Table View"}>
+              {view === "list" ? <TableViewIcon width={22} height={22} fill="#1e293b" /> : <ViewListIcon width={22} height={22} fill="#1e293b" />}
             </Button>
           </div>
 
           {/* add new job application form */}
           <Dialog>
             <DialogTrigger asChild>
-              <Button>Add New</Button>
+              <Button>
+                <AddIcon width={22} height={22} fill="#f8fafc" />
+              </Button>
             </DialogTrigger>
             <DialogContent className="max-h-[90%] flex flex-col">
               <DialogHeader>
                 <h2 className="text-[20px] font-bold">Add Job Application</h2>
               </DialogHeader>
               <DialogDescription className="overflow-y-auto">
-                <div className="flex flex-col w-full text-black px-3 pb-2">
-                  <label className="text-[15px] font-medium">Job Title</label>
-                  <Input className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Employer</label>
-                  <Input className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Application Date</label>
-                  <DatePicker className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Application Status</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Application Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="applied">Applied</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <label className="mt-4 text-[15px] font-medium">Office Type</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Office Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="onsite">Onsite</SelectItem>
-                      <SelectItem value="hybrid">Hybrid</SelectItem>
-                      <SelectItem value="remote">Remote</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <label className="mt-4 text-[15px] font-medium">Location</label>
-                  <Input className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Referred By</label>
-                  <Input className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Job Description</label>
-                  <Input className="mt-1" />
-                  <label className="mt-4 text-[15px] font-medium">Link to Job Posting</label>
-                  <Input className="mt-1" />
-                </div>
+                <JobForm />
               </DialogDescription>
               <DialogFooter>
                 <Button>Save</Button>
@@ -86,6 +69,17 @@ const JobPage = () => {
         </div>
 
         {/* job contents */}
+        <div className="mt-6">
+          <DataTable columns={columns} data={data} />
+        </div>
+
+        {/* pagination */}
+        <div className="w-full flex items-center justify-between mt-6 px-4">
+          <div className="flex items-center basis-1/2 gap-x-4">
+            <label>1 - 15 of 200 rows</label>
+          </div>
+          <CustomPagination className="justify-end" />
+        </div>
       </div>
     </div>
   );
