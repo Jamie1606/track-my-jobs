@@ -9,6 +9,7 @@ import JobForm from "./job-form";
 import CustomPagination from "@/components/shared/custom-pagination";
 import { DataTable } from "@/components/shared/data-table";
 import { columns, Payment } from "./columns";
+import { Link } from "react-router";
 
 const JobPage = () => {
   const [view, setView] = useState<"table" | "list">("table");
@@ -18,12 +19,14 @@ const JobPage = () => {
       amount: 100,
       status: "pending",
       email: "m@example.com",
+      action: <Link to="">Hello</Link>,
     },
     {
       id: "728ed52f",
       amount: 100,
       status: "pending",
       email: "m@example.com",
+      action: <Link to="">Hello</Link>,
     },
   ];
 

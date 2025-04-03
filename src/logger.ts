@@ -1,6 +1,6 @@
 import winston from "winston";
 import path from "node:path";
-import PATH from "../constant/file";
+import PATH from "./constant/file";
 
 // Custom console format: [timestamp] [label] [level]: message
 const consoleFormat = winston.format.printf((obj) => {

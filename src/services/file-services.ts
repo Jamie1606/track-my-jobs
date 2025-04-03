@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import PATH from "../constant/file";
 import { settings } from "../records";
-import logger from "../config/logger";
+import logger from "../logger";
 
 export function loadSettings() {
   const filePath = PATH.SETTING;

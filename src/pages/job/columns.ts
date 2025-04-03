@@ -7,6 +7,7 @@ export type Payment = {
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
   email: string;
+  action: React.ReactNode;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -21,5 +22,9 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "amount",
     header: "Amount",
+  },
+  {
+    cell: ({ row }) => row.original.action,
+    header: "Action",
   },
 ];

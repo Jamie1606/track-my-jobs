@@ -4,6 +4,7 @@ import started from "electron-squirrel-startup";
 import { loadSettings } from "./services/file-services";
 import { settings } from "./records";
 import { deleteOldLogs } from "./services/log-services";
+import { createTables } from "./db";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -51,6 +52,7 @@ const createWindow = () => {
 app.on("ready", () => {
   loadSettings();
   deleteOldLogs(7);
+  createTables();
   createWindow();
 });
 

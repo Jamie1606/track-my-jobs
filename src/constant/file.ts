@@ -8,6 +8,7 @@ const PATH = {
   LOG_FILE_NAME: "log",
   ERROR_LOG_FILE_NAME: "error-log",
   EXCEPTION_LOG_FILE_NAME: "exception-log",
+  DB: path.join(app.getPath("userData"), "app.db"),
 } as const;
 
 export default PATH;
