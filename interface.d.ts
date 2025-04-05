@@ -1,4 +1,4 @@
-import { SettingRecords } from "./src/records";
+import { SettingRecords } from "./src/main/records";
 
 export interface IElectronAPI {
   onUpdateSetting: (callback: (value: SettingRecords) => void) => void;

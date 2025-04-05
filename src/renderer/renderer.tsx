@@ -46,6 +46,7 @@ import useSettingStore from "./state/setting-store";
 const settingStore = useSettingStore.getState();
 
 window.electronAPI.onUpdateSetting((value) => {
+  console.log(value);
   if (settingStore.width !== value.WIDTH) settingStore.setWidth(value.WIDTH);
   if (settingStore.height !== value.HEIGHT) settingStore.setHeight(value.HEIGHT);
   if (settingStore.uiScaling !== value.UI_SCALING) settingStore.setUIScaling(value.UI_SCALING);

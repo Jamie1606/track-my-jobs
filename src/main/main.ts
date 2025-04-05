@@ -4,7 +4,6 @@ import started from "electron-squirrel-startup";
 import { loadSettings } from "./services/file-services";
 import { settings } from "./records";
 import { deleteOldLogs } from "./services/log-services";
-import { createTables } from "./db";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -19,9 +18,6 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    maximizable: false,
-    fullscreenable: false,
-    resizable: false,
   });
 
   mainWindow.setMenuBarVisibility(false);
@@ -42,8 +38,8 @@ const createWindow = () => {
     mainWindow.webContents.send("update-setting", settings);
   });
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // Open the DevTools only in the development environment.
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -52,7 +48,6 @@ const createWindow = () => {
 app.on("ready", () => {
   loadSettings();
   deleteOldLogs(7);
-  createTables();
   createWindow();
 });
 

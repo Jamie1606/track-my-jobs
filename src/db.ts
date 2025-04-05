@@ -1,5 +1,5 @@
 import Database from "better-sqlite3";
-import PATH from "./constant/file";
+import PATH from "./main/constant/file";
 
 const db = new Database(PATH.DB);
 db.pragma("foreign_keys = ON");
