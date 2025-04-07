@@ -1,6 +1,10 @@
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  dialect: "sqlite",
   schema: "./src/main/database/schema.ts",
+  dialect: "sqlite",
+  out: "./drizzle",
+  dbCredentials: {
+    url: "./job-tracker.db",
+  },
 });
