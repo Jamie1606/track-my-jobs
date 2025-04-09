@@ -7,13 +7,14 @@ import ExtensionIcon from "@/icons/extension-icon";
 import InfoIcon from "@/icons/info-icon";
 import PersonIcon from "@/icons/person-icon";
 import SettingIcon from "@/icons/setting-icon";
+import StepIcon from "@/icons/step-icon";
 import TaskIcon from "@/icons/task-icon";
 import WorkIcon from "@/icons/work-icon";
 import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
-    <div className="flex w-screen h-screen max-h-screen text-[#1e293b] bg-[#f8fafc]">
+    <div className="flex w-screen h-screen overflow-hidden max-h-screen text-[#1e293b] bg-[#f8fafc]">
       <div className="flex flex-col h-full w-[230px] shadow-lg">
         <div className="flex flex-col min-h-0 overflow-y-auto p-2 gap-y-2">
           <SidebarItem url={URL.DASHBOARD} label="Dashboard" icon={DashboardIcon} />
@@ -22,6 +23,7 @@ const RootLayout = () => {
           <SidebarItem url={URL.TASK} label="Tasks" icon={TaskIcon} />
           <SidebarItem url={URL.ARCHIVE} label="Archive" icon={ArchiveIcon} />
           <SidebarItem url={URL.CALENDAR} label="Calendar" icon={CalendarIcon} />
+          <SidebarItem url={URL.JOB_STATUS} label="Job Status" icon={StepIcon} />
           <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} />
         </div>
         <div className="mt-auto flex flex-col p-2 gap-y-2 border-t">
@@ -29,7 +31,7 @@ const RootLayout = () => {
           <SidebarItem url={URL.ABOUT} label="About" icon={InfoIcon} />
         </div>
       </div>
-      <div className="flex w-full p-2">
+      <div className="flex w-full overflow-y-auto p-2">
         <Outlet />
       </div>
     </div>

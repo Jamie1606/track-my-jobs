@@ -5,6 +5,7 @@ const URL = {
   TASK: "/task",
   ARCHIVE: "/archive",
   CALENDAR: "/calendar",
+  JOB_STATUS: "/job-status",
   EXTENSION: "/extension",
   SETTING: "/setting",
   ABOUT: "/about",

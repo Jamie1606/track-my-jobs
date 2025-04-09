@@ -122,9 +122,16 @@
   }
 }
 
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
 /* width */
 ::-webkit-scrollbar {
-  width: 2.5px;
+  width: 3px;
+  height: 5px; /* Added height for horizontal scrollbar */
 }
 
 /* Track */
@@ -135,9 +142,15 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #aaa;
+  border-radius: 2px; /* Added rounded corners for better appearance */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #999;
+}
+
+/* Corner where scrollbars meet */
+::-webkit-scrollbar-corner {
+  background: #f8fafc;
 }

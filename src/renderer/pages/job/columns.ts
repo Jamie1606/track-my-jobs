@@ -1,19 +1,36 @@
 import { ColumnDef } from "@tanstack/react-table";
+import { Job } from "../../../main/database/schema";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
+export type JobApplication = Job & {
+  jobId: number;
+  location: string;
   status: "pending" | "processing" | "success" | "failed";
   email: string;
   action: React.ReactNode;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<JobApplication>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    cell: ({ row }) => Number(row.id) + 1 + ".",
+    header: "No.",
+  },
+  {
+    accessorKey: "location",
+    header: "Location",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
   },
   {
     accessorKey: "email",

@@ -17,7 +17,7 @@ export default function CustomPagination({ className }: CustomPaginationProps) {
         <PaginationItem>
           <PaginationLink to="#">2</PaginationLink>
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem className="hidden lg:flex">
           <PaginationLink to="#">3</PaginationLink>
         </PaginationItem>
         <PaginationItem>
