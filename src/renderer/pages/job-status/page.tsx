@@ -1,18 +1,17 @@
 import { DataTable } from "@/components/shared/data-table";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { columns } from "./columns";
+import { columns, JobStatus } from "./columns";
 import CustomPagination from "@/components/shared/custom-pagination";
 import JobStatusForm from "./job-status-form";
-import { Status } from "../../../main/database/schema";
-import { toast } from "sonner";
 import { showToast } from "@/lib/toast";
 
 const JobStatusPage = () => {
-  const [data, setData] = useState<Status[]>([]);
+  const [data, setData] = useState<JobStatus[]>([]);
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
+  const [refresh, setRefresh] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -23,25 +22,28 @@ const JobStatusPage = () => {
       console.log(res);
       if (res.success) {
         setData(res.data);
+      } else {
+        showToast("Error in retrieving status data.", "error");
       }
     });
   }, []);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(true);
-      window.StatusAPI.getStatusList(search, limit, page).then((res) => {
-        if (res.success) {
-          setData(res.data);
-        }
-        setLoading(false);
-      });
-    }, 300);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setLoading(true);
+  //     window.StatusAPI.getStatusList(search, limit, page).then((res) => {
+  //       if (res.success) {
+  //         setData(res.data);
+  //       }
+  //       setLoading(false);
+  //       setRefresh(false);
+  //     });
+  //   }, 300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [search, page, limit]);
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   };
+  // }, [search, page, limit, refresh]);
 
   return (
     <div className="flex flex-col w-full px-4 mt-2">
@@ -55,12 +57,12 @@ const JobStatusPage = () => {
           </div>
 
           {/* add new job status */}
-          <JobStatusForm />
+          <JobStatusForm setRefresh={setRefresh} />
         </div>
 
         {/* job contents */}
         <div className="mt-6">
-          <DataTable columns={columns} data={[]} />
+          <DataTable columns={columns} data={data} />
         </div>
 
         {/* pagination */}

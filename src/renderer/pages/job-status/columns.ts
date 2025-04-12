@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Status } from "../../../main/database/schema";
 
 export type JobStatus = Status & {
-  action: React.ReactNode;
+  action?: React.ReactNode;
 };
 
 export const columns: ColumnDef<JobStatus>[] = [
@@ -15,7 +15,7 @@ export const columns: ColumnDef<JobStatus>[] = [
     header: "Status Name",
   },
   {
-    cell: ({ row }) => row.original.action,
+    cell: ({ row }) => (row.original.action ? row.original.action : "-"),
     header: "Action",
   },
 ];

@@ -27,7 +27,7 @@ export const statusDb = {
     return await db
       .select()
       .from(status)
-      .where(like(status.name, `%${search}%`))
+      .where(search ? like(status.name, `%${search}%`) : undefined)
       .limit(limit)
       .offset(offset);
   },
