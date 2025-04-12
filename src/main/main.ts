@@ -4,6 +4,7 @@ import started from "electron-squirrel-startup";
 import { loadSettings } from "./services/file-services";
 import { settings } from "./records";
 import { deleteOldLogs } from "./services/log-services";
+import "./ipc/status-ipc";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -15,10 +16,10 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: settings.WIDTH,
     height: settings.HEIGHT,
-    minWidth: 800,
-    minHeight: 600,
+    minWidth: 1024,
+    minHeight: 768,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "index.js"),
     },
   });
 

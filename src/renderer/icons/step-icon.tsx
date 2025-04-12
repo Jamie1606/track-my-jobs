@@ -1,4 +1,4 @@
-import { IconProps } from "./definition";
+import { IconProps } from "../types/icon-definition";
 
 export default function StepIcon({ width, height, className, fill = "black" }: IconProps) {
   return (

@@ -1,4 +1,4 @@
-import { IconProps } from "./definition";
+import { IconProps } from "../types/icon-definition";
 
 export default function CalendarIcon({ width, height, fill = "black", className }: IconProps) {
   return (

@@ -1,11 +1,27 @@
+import { NewStatus, Status } from "./src/main/database/schema";
 import { SettingRecords } from "./src/main/records";
 
-export interface IElectronAPI {
-  onUpdateSetting: (callback: (value: SettingRecords) => void) => void;
+export type APISuccess<T> = {
+  success: true;
+  data: T;
+};
+
+export type APIError = {
+  success: false;
+  error: string;
+};
+
+export type APIResponse<T> = APISuccess<T> | APIError;
+
+export interface IStatusAPI {
+  createNewStatus: (newStatus: NewStatus) => Promsie<APIResponse<number>>;
+  getStatusList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
 }
 
 declare global {
   interface Window {
-    electronAPI: IElectronAPI;
+    StatusAPI: IStatusAPI;
   }
 }
+
+export {};

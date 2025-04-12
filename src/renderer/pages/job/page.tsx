@@ -14,90 +14,90 @@ import { Link } from "react-router";
 const JobPage = () => {
   const [view, setView] = useState<"table" | "list">("table");
   const data: JobApplication[] = [
-    {
-      jobId: 1,
-      location: "Kathmandu",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
-    {
-      jobId: 2,
-      location: "100",
-      status: "pending",
-      email: "m@example.com",
-      action: <Link to="">Hello</Link>,
-    },
+    // {
+    //   jobId: 1,
+    //   location: "Kathmandu",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
+    // {
+    //   jobId: 2,
+    //   location: "100",
+    //   status: "pending",
+    //   email: "m@example.com",
+    //   action: <Link to="">Hello</Link>,
+    // },
   ];
 
   useEffect(() => {
@@ -120,7 +120,7 @@ const JobPage = () => {
             </Button>
           </div>
 
-          {/* add new job application form */}
+          {/* add new job application */}
           <JobForm />
         </div>
 

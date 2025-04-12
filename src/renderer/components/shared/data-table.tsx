@@ -21,7 +21,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
-                return <TableHead className="text-center font-semibold px-4" key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
+                return (
+                  <TableHead className="text-center font-semibold px-4" key={header.id}>
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                );
               })}
             </TableRow>
           ))}
@@ -31,14 +35,16 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell className="text-center px-4" key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell className="text-center px-4" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-20 text-center p-0">
-                No results.
+              <TableCell colSpan={columns.length} className="h-20 text-center px-4">
+                <label className="text-red-600">No results.</label>
               </TableCell>
             </TableRow>
           )}

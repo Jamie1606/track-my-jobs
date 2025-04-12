@@ -1,9 +1,9 @@
 import { IconProps } from "../types/icon-definition";
 
-export default function AddIcon({ width, height, fill = "black", className }: IconProps) {
+export default function SuccessIcon({ width, height, className, fill = "black" }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" height={height} viewBox="0 -960 960 960" width={width} fill={fill} className={className}>
-      <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+      <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
     </svg>
   );
 }
