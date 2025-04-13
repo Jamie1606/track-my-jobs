@@ -12,31 +12,33 @@ export default function CustomPagination({ current, total, onPageChange, classNa
     <Pagination className={className}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious to="#" />
+          <PaginationPrevious draggable={false} to="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink isActive to="#">1</PaginationLink>
+          <PaginationLink draggable={false} isActive to="#">
+            1
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">2</PaginationLink>
+          <PaginationLink draggable={false} to="#">2</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">3</PaginationLink>
+          <PaginationLink draggable={false} to="#">3</PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">8</PaginationLink>
+          <PaginationLink draggable={false} to="#">8</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">9</PaginationLink>
+          <PaginationLink draggable={false} to="#">9</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">10</PaginationLink>
+          <PaginationLink draggable={false} to="#">10</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext to="#" />
+          <PaginationNext draggable={false} to="#" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

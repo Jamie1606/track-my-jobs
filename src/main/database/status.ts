@@ -38,13 +38,17 @@ export const statusDb = {
    * @param search The search query
    * @returns A list of job statuses
    */
-  getStatusList: async (offset: number, limit: number, search: string): Promise<Status[]> => {
+  getStatusList: async (search: string, limit: number, offset: number): Promise<Status[]> => {
     return await db
       .select()
       .from(status)
-      .where(search ? like(status.name, `%${search}%`) : undefined)
+      .where(search ? like(status.name, `%${search.trim()}%`) : undefined)
       .limit(limit)
       .offset(offset);
+  },
+
+  getStatusCount: async (search: string): Promise<number> => {
+    return await db.$count(status, search ? like(status.name, `%${search.trim()}%`) : undefined);
   },
 
   /**

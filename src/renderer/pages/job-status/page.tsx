@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { showToast } from "@/lib/toast";
 import { columns, JobStatus } from "./columns";
-import CustomPagination from "@/components/shared/custom-pagination";
 import JobStatusForm from "./job-status-form";
 import JobStatusEditForm from "./job-status-edit-form";
 import DeleteDialog from "@/components/shared/delete-dialog";
@@ -15,7 +14,7 @@ const JobStatusPage = () => {
   const [limit, setLimit] = useState<number>(10);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const formatData = (data: JobStatus[]) => {
     return data.map((item) => {
@@ -42,34 +41,47 @@ const JobStatusPage = () => {
     });
   };
 
+  const getList = async () => {
+    const offset = (page - 1) * 10;
+    const res = await window.StatusAPI.getStatusList(search.trim(), limit, offset);
+    if (res.success) {
+      setData(formatData(res.data));
+    } else {
+      showToast(res.error, "error");
+    }
+  };
+
+  const getCount = async () => {
+    const res = await window.StatusAPI.getStatusCount(search.trim());
+    if (res.success) {
+      setTotal(res.data);
+    } else {
+      showToast(res.error, "error");
+    }
+  };
+
   useEffect(() => {
     document.title = "Track My Jobs | Job Status";
-
-    window.StatusAPI.getStatusList("", 10, 0).then((res) => {
-      if (res.success) {
-        setData(formatData(res.data));
-      } else {
-        showToast("Error in retrieving status data.", "error");
-      }
-    });
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setLoading(true);
-  //     window.StatusAPI.getStatusList(search, limit, page).then((res) => {
-  //       if (res.success) {
-  //         setData(res.data);
-  //       }
-  //       setLoading(false);
-  //       setRefresh(false);
-  //     });
-  //   }, 300);
+  useEffect(() => {
+    if (!loading) {
+      getList();
+    }
+  }, [page, limit]);
 
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, [search, page, limit, refresh]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      Promise.all([getList(), getCount()]).finally(() => {
+        setLoading(false);
+        setRefresh(false);
+      });
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [search, refresh]);
 
   return (
     <div className="flex flex-col w-full px-4 mt-2">
@@ -79,7 +91,7 @@ const JobStatusPage = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center w-full">
             {/* search bar */}
-            <Input className="max-w-80 lg:max-w-88 xl:max-w-96 mr-3" />
+            <Input className="max-w-80 lg:max-w-88 xl:max-w-96 mr-3" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
 
           {/* add new job status */}
@@ -88,15 +100,7 @@ const JobStatusPage = () => {
 
         {/* job contents */}
         <div className="mt-6">
-          <DataTable columns={columns} data={data} />
-        </div>
-
-        {/* pagination */}
-        <div className="w-full lg:px-4 xl:px-8 flex items-center justify-between mt-6 mb-4">
-          <div className="flex items-center basis-1/2 gap-x-4">
-            <label className="text-[15px]">1 - 15 of {total} rows</label>
-          </div>
-          <CustomPagination current={page} total={total} onPageChange={setPage} className="justify-end" />
+          <DataTable columns={columns} data={data} loading={loading} rowCount={limit} page={page} total={total} setPage={setPage} />
         </div>
       </div>
     </div>

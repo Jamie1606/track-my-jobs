@@ -17,6 +17,7 @@ export interface IStatusAPI {
   createNewStatus: (newStatus: NewStatus) => Promsie<APIResponse<number>>;
   getStatusList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
   getStatusByID: (statusID: number) => Promise<APIResponse<Status>>;
+  getStatusCount: (search: string) => Promise<APIResponse<number>>;
 }
 
 declare global {

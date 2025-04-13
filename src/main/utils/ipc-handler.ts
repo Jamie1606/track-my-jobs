@@ -6,6 +6,7 @@ export function handleIPC<TArgs extends any[], TResult>(fn: (...args: TArgs) => 
       const data = await fn(...args);
       return { success: true, data: data as TResult };
     } catch (error) {
+      console.log(error);
       return { success: false, error: parseSQLiteError(error) };
     }
   };
