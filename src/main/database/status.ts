@@ -1,4 +1,4 @@
-import { like } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 import { db } from "./db";
 import { type NewStatus, type Status, status } from "./schema";
 import { newStatusSchema } from "../zod-schema/status";
@@ -45,5 +45,20 @@ export const statusDb = {
       .where(search ? like(status.name, `%${search}%`) : undefined)
       .limit(limit)
       .offset(offset);
+  },
+
+  /**
+   * Get job status by status ID
+   * @param statusID The status ID for retrieving data
+   * @returns Job Status
+   */
+  getStatusByID: async (statusID: number): Promise<Status> => {
+    const result = await db.selectDistinct().from(status).where(eq(status.statusId, statusID));
+
+    if (result.length !== 1) {
+      throw new Error("No status found");
+    }
+
+    return result[0];
   },
 };

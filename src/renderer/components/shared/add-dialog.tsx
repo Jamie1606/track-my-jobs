@@ -14,7 +14,7 @@ interface AddDialogProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AddDialog({ children, title, description, buttonSize = "sm", resetForm, onSubmit, setRefresh }: AddDialogProps) {
+export default function AddDialog({ children, title, description, buttonSize = "default", resetForm, onSubmit, setRefresh }: AddDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 

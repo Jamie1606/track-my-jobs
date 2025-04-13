@@ -23,7 +23,7 @@ const JobStatusPage = () => {
         ...item,
         action: (
           <div className="flex items-center gap-x-2 justify-center">
-            <JobStatusEditForm setRefresh={setRefresh} />
+            <JobStatusEditForm setRefresh={setRefresh} editID={item.statusId} />
             <DeleteDialog
               setRefresh={setRefresh}
               title="Delete Job Status"

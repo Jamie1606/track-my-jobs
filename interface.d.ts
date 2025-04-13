@@ -16,6 +16,7 @@ export type APIResponse<T> = APISuccess<T> | APIError;
 export interface IStatusAPI {
   createNewStatus: (newStatus: NewStatus) => Promsie<APIResponse<number>>;
   getStatusList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
+  getStatusByID: (statusID: number) => Promise<APIResponse<Status>>;
 }
 
 declare global {

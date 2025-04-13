@@ -6,7 +6,6 @@ import EditIcon from "@/icons/edit-icon";
 
 interface EditDialogProps {
   children: React.ReactNode;
-  editID: number;
   title: string;
   description?: string;
   buttonSize?: "sm" | "default" | "lg";
@@ -16,7 +15,7 @@ interface EditDialogProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function EditDialog({ children, editID, title, description, buttonSize = "sm", checkDataExist, resetForm, onSubmit, setRefresh }: EditDialogProps) {
+export default function EditDialog({ children, title, description, buttonSize = "sm", checkDataExist, resetForm, onSubmit, setRefresh }: EditDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -39,8 +38,8 @@ export default function EditDialog({ children, editID, title, description, butto
   };
 
   useEffect(() => {
-    handleCheckData();
-  }, []);
+    if (isOpen) handleCheckData();
+  }, [isOpen]);
 
   return (
     <Dialog
@@ -52,7 +51,7 @@ export default function EditDialog({ children, editID, title, description, butto
     >
       <DialogTrigger asChild>
         <Button variant="edit" size={buttonSize}>
-          <EditIcon width={22} height={22} fill="#f8fafc" />
+          <EditIcon width={15} height={15} fill="#f8fafc" />
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -66,9 +65,11 @@ export default function EditDialog({ children, editID, title, description, butto
       >
         <DialogTitle className="text-[20px] font-bold">{title}</DialogTitle>
         <DialogDescription className="text-[15px]">{description}</DialogDescription>
-        <div className="flex flex-col w-full text-black px-3 pb-2">{children}</div>
+        <>{children}</>
         <DialogFooter>
-          <Button variant="edit" onClick={handleSubmit}>{loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Edit</span>}</Button>
+          <Button variant="edit" onClick={handleSubmit}>
+            {loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Edit</span>}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
