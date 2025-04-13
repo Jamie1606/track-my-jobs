@@ -1,10 +1,12 @@
 import { DataTable } from "@/components/shared/data-table";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { showToast } from "@/lib/toast";
 import { columns, JobStatus } from "./columns";
 import CustomPagination from "@/components/shared/custom-pagination";
 import JobStatusForm from "./job-status-form";
-import { showToast } from "@/lib/toast";
+import JobStatusEditForm from "./job-status-edit-form";
+import DeleteDialog from "@/components/shared/delete-dialog";
 
 const JobStatusPage = () => {
   const [data, setData] = useState<JobStatus[]>([]);
@@ -15,13 +17,37 @@ const JobStatusPage = () => {
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const formatData = (data: JobStatus[]) => {
+    return data.map((item) => {
+      return {
+        ...item,
+        action: (
+          <div className="flex items-center gap-x-2 justify-center">
+            <JobStatusEditForm setRefresh={setRefresh} />
+            <DeleteDialog
+              setRefresh={setRefresh}
+              title="Delete Job Status"
+              message={`Are you sure you want to delete this job status "${item.name}"?`}
+              onSubmit={() =>
+                new Promise((resolve) =>
+                  setTimeout(() => {
+                    resolve(true);
+                  }, 500)
+                )
+              }
+            />
+          </div>
+        ),
+      };
+    });
+  };
+
   useEffect(() => {
     document.title = "Track My Jobs | Job Status";
 
     window.StatusAPI.getStatusList("", 10, 0).then((res) => {
-      console.log(res);
       if (res.success) {
-        setData(res.data);
+        setData(formatData(res.data));
       } else {
         showToast("Error in retrieving status data.", "error");
       }

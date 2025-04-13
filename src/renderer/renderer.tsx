@@ -74,6 +74,6 @@ ReactDOM.createRoot(root).render(
         </Route>
       </Routes>
     </BrowserRouter>
-    <Toaster position="bottom-right" richColors />
+    <Toaster position="bottom-right" richColors className="cursor-pointer" expand />
   </>
 );

@@ -1,6 +1,8 @@
 import { like } from "drizzle-orm";
 import { db } from "./db";
 import { type NewStatus, type Status, status } from "./schema";
+import { newStatusSchema } from "../zod-schema/status";
+import { ZodError } from "zod";
 
 /**
  * Job Status database operations
@@ -12,8 +14,21 @@ export const statusDb = {
    * @returns The created status with ID
    */
   create: async (newStatus: NewStatus): Promise<number> => {
-    const result = await db.insert(status).values(newStatus).returning({ insertedId: status.statusId });
-    return result[0].insertedId;
+    try {
+      const parsed = newStatusSchema.parse(newStatus);
+      const result = await db.insert(status).values(parsed).returning({ insertedId: status.statusId });
+
+      if (!result.length || !result[0].insertedId) {
+        throw new Error("Failed to insert status.");
+      }
+
+      return result[0].insertedId;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const firstError = error.errors[0]?.message;
+        throw new Error(firstError || "Invalid input.");
+      } else throw error;
+    }
   },
 
   /**

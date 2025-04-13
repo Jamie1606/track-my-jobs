@@ -15,7 +15,7 @@ export default function CustomPagination({ current, total, onPageChange, classNa
           <PaginationPrevious to="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink to="#">1</PaginationLink>
+          <PaginationLink isActive to="#">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationLink to="#">2</PaginationLink>
