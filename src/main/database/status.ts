@@ -32,16 +32,40 @@ export const statusDb = {
   },
 
   /**
+   * Update job status
+   * @param name The new status name
+   * @param statusID The status ID to update
+   * @returns The updated status ID
+   */
+  updateStatus: async (name: string, statusID: number): Promise<number> => {
+    try {
+      const parsed = newStatusSchema.parse({ name });
+      const result = await db.update(status).set({ name: parsed.name }).where(eq(status.statusId, statusID)).returning({ updatedID: status.statusId });
+
+      if (!result.length || result[0].updatedID !== statusID) {
+        throw new Error("Failed to update status.");
+      }
+
+      return result[0].updatedID;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const firstError = error.errors[0]?.message;
+        throw new Error(firstError || "Invalid input.");
+      } else throw error;
+    }
+  },
+
+  /**
    * Delete the job status
-   * @param statusID The status ID to delete 
+   * @param statusID The status ID to delete
    * @returns The deleted status ID
    */
   deleteStatus: async (statusID: number): Promise<number> => {
     try {
       const result = await db.delete(status).where(eq(status.statusId, statusID)).returning({ deleteID: status.statusId });
 
-      if (!result.length || !result[0].deleteID) {
-        throw new Error("No status found.");
+      if (!result.length || result[0].deleteID !== statusID) {
+        throw new Error("Failed to delete status.");
       }
 
       return result[0].deleteID;

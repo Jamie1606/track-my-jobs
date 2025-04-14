@@ -72,9 +72,11 @@ export function DataTable<TData, TValue>({ columns, data, loading = false, rowCo
       </div>
       <div className="w-full lg:px-4 xl:px-8 flex items-center justify-between mt-6 mb-4">
         <div className="flex items-center basis-1/2 gap-x-4">
-          <label className="text-[15px] select-none">
-            {(page - 1) * rowCount + 1} - {page * rowCount < total ? page * rowCount : total} of {total} rows
-          </label>
+          {total > 0 && (
+            <label className="text-[15px] select-none">
+              {(page - 1) * rowCount + 1} - {page * rowCount < total ? page * rowCount : total} of {total} rows
+            </label>
+          )}
         </div>
         <CustomPagination current={page} total={total} limit={rowCount} onPageChange={setPage} className="justify-end" />
       </div>

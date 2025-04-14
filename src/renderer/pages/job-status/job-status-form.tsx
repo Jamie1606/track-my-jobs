@@ -34,14 +34,15 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
     }
 
     try {
-      const res: APIResponse<number> = await window.StatusAPI.createNewStatus({ name: name.trim() });
+      const res: APIResponse<number> = await window.StatusAPI.createNewStatus({ name: trimmedName });
+
       if (res.success) {
         showToast("Job status created successfully", "success");
         return true;
+      } else {
+        showToast(res.error, "error");
+        return false;
       }
-
-      showToast(res.error, "error");
-      return false;
     } catch (error) {
       showToast("Unexpected error occurred.", "error");
       return false;

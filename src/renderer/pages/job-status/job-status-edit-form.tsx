@@ -21,6 +21,7 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
       setName(result.data.name);
       return true;
     }
+    showToast("Invalid status data", "error");
     return false;
   };
 
@@ -43,7 +44,15 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
     }
 
     try {
-      return true;
+      const res = await window.StatusAPI.updateStatus(trimmedName, editID);
+      
+      if (res.success) {
+        showToast("Job status updated successfully", "success");
+        return true;
+      } else {
+        showToast(res.error, "error");
+        return true;
+      }
     } catch (error) {
       showToast("Unexpected error occurred.", "error");
       return false;
