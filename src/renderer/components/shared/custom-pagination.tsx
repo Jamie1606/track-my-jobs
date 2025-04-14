@@ -35,15 +35,17 @@ export default function CustomPagination({ current, limit, total, onPageChange, 
   return (
     <Pagination className={className}>
       <PaginationContent>
-        {current > 1 && (
+        {current > 3 && (
           <PaginationItem>
             <PaginationFirst draggable={false} to="#" onClick={() => goToPage(1)} />
           </PaginationItem>
         )}
 
-        <PaginationItem>
-          <PaginationPrevious draggable={false} to="#" onClick={() => goToPage(current - 1)} />
-        </PaginationItem>
+        {current > 1 && (
+          <PaginationItem>
+            <PaginationPrevious draggable={false} to="#" onClick={() => goToPage(current - 1)} />
+          </PaginationItem>
+        )}
 
         <AnimatePresence mode="popLayout">
           {range.map((page) => (
@@ -57,11 +59,13 @@ export default function CustomPagination({ current, limit, total, onPageChange, 
           ))}
         </AnimatePresence>
 
-        <PaginationItem>
-          <PaginationNext draggable={false} to="#" onClick={() => goToPage(current + 1)} />
-        </PaginationItem>
-
         {current < totalPage && (
+          <PaginationItem>
+            <PaginationNext draggable={false} to="#" onClick={() => goToPage(current + 1)} />
+          </PaginationItem>
+        )}
+
+        {current < totalPage - 2 && (
           <PaginationItem>
             <PaginationLast draggable={false} to="#" onClick={() => goToPage(totalPage)} />
           </PaginationItem>

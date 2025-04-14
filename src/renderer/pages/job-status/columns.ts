@@ -5,9 +5,9 @@ export type JobStatus = Status & {
   action?: React.ReactNode;
 };
 
-export const columns: ColumnDef<JobStatus>[] = [
+export const getColumns = (page: number, rowCount: number): ColumnDef<JobStatus>[] => [
   {
-    cell: ({ row }) => Number(row.id) + 1 + ".",
+    cell: ({ row }) => (Number(row.id) + 1 + (page - 1) * rowCount) + ".",
     header: "No.",
   },
   {

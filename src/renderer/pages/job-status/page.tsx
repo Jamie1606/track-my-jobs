@@ -2,7 +2,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { showToast } from "@/lib/toast";
-import { columns, JobStatus } from "./columns";
+import { getColumns, JobStatus } from "./columns";
 import JobStatusForm from "./job-status-form";
 import JobStatusEditForm from "./job-status-edit-form";
 import DeleteDialog from "@/components/shared/delete-dialog";
@@ -100,7 +100,7 @@ const JobStatusPage = () => {
 
         {/* job contents */}
         <div className="mt-6">
-          <DataTable columns={columns} data={data} loading={loading} rowCount={limit} page={page} total={total} setPage={setPage} />
+          <DataTable columns={getColumns(page, limit)} data={data} loading={loading} rowCount={limit} page={page} total={total} setPage={setPage} />
         </div>
       </div>
     </div>
