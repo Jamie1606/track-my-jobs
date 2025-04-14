@@ -16,6 +16,17 @@ const JobStatusPage = () => {
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const deleteStatus = async (statusID: number) => {
+    const res = await window.StatusAPI.deleteStatus(statusID);
+    if (res.success) {
+      showToast("Job status deleted successfully", "success");
+      return true;
+    } else {
+      showToast(res.error, "error");
+      return false;
+    }
+  };
+
   const formatData = (data: JobStatus[]) => {
     return data.map((item) => {
       return {
@@ -23,18 +34,7 @@ const JobStatusPage = () => {
         action: (
           <div className="flex items-center gap-x-2 justify-center">
             <JobStatusEditForm setRefresh={setRefresh} editID={item.statusId} />
-            <DeleteDialog
-              setRefresh={setRefresh}
-              title="Delete Job Status"
-              message={`Are you sure you want to delete this job status "${item.name}"?`}
-              onSubmit={() =>
-                new Promise((resolve) =>
-                  setTimeout(() => {
-                    resolve(true);
-                  }, 500)
-                )
-              }
-            />
+            <DeleteDialog setRefresh={setRefresh} title="Delete Job Status" message={`Are you sure you want to delete this job status "${item.name}"?`} onSubmit={() => deleteStatus(item.statusId)} />
           </div>
         ),
       };

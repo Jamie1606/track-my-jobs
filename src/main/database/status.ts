@@ -11,23 +11,42 @@ export const statusDb = {
   /**
    * Create a new job status
    * @param newStatus The status data to insert
-   * @returns The created status with ID
+   * @returns The created status ID
    */
-  create: async (newStatus: NewStatus): Promise<number> => {
+  createNewStatus: async (newStatus: NewStatus): Promise<number> => {
     try {
       const parsed = newStatusSchema.parse(newStatus);
-      const result = await db.insert(status).values(parsed).returning({ insertedId: status.statusId });
+      const result = await db.insert(status).values(parsed).returning({ insertedID: status.statusId });
 
-      if (!result.length || !result[0].insertedId) {
-        throw new Error("Failed to insert status.");
+      if (!result.length || !result[0].insertedID) {
+        throw new Error("Failed to create status.");
       }
 
-      return result[0].insertedId;
+      return result[0].insertedID;
     } catch (error) {
       if (error instanceof ZodError) {
         const firstError = error.errors[0]?.message;
         throw new Error(firstError || "Invalid input.");
       } else throw error;
+    }
+  },
+
+  /**
+   * Delete the job status
+   * @param statusID The status ID to delete 
+   * @returns The deleted status ID
+   */
+  deleteStatus: async (statusID: number): Promise<number> => {
+    try {
+      const result = await db.delete(status).where(eq(status.statusId, statusID)).returning({ deleteID: status.statusId });
+
+      if (!result.length || !result[0].deleteID) {
+        throw new Error("No status found.");
+      }
+
+      return result[0].deleteID;
+    } catch (error) {
+      throw error;
     }
   },
 
@@ -53,7 +72,7 @@ export const statusDb = {
 
   /**
    * Get job status by status ID
-   * @param statusID The status ID for retrieving data
+   * @param statusID The status ID to retrieve
    * @returns Job Status
    */
   getStatusByID: async (statusID: number): Promise<Status> => {
