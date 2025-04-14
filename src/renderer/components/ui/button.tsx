@@ -15,6 +15,8 @@ const buttonVariants = cva("inline-flex items-center justify-center gap-2 whites
       link: "text-primary underline-offset-4 hover:underline",
       edit: "rounded-md hover:cursor-pointer text-[#f8fafc] bg-[#efb100]/90 hover:bg-[#efb100]/80",
       delete: "rounded-md hover:cursor-pointer text-[#f8fafc] bg-[#fb2c36]/90 hover:bg-[#fb2c36]/80",
+      pagination: "hover:bg-[#1d4ed8]/10",
+      active: "bg-[#1d4ed8]/90 text-[#f8fafc]"
     },
     size: {
       default: "h-9 px-4 py-2 has-[>svg]:px-3",

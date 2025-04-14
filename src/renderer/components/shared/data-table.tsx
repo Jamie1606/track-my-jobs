@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({ columns, data, loading = false, rowCo
             {(page - 1) * rowCount + 1} - {page * rowCount < total ? page * rowCount : total} of {total} rows
           </label>
         </div>
-        <CustomPagination current={page} total={total} onPageChange={setPage} className="justify-end" />
+        <CustomPagination current={page} total={total} limit={rowCount} onPageChange={setPage} className="justify-end" />
       </div>
     </>
   );
