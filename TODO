@@ -1,0 +1,35 @@
+Dashboard
+☐ Show overview of current information with graphs and charts
+
+Job Applications
+☐ Show list table for all job applications with some filter/pagination @started(25-04-15 16:59)
+☐ Form to insert new job application (including tailored resume and cover letter)
+☐ Automatically add the employer data in new job application
+☐ Update job applications
+☐ Update job application status (easily)
+☐ View job application status history
+☐ Delete job applications
+
+Advanced
+☐ Import job applications from excel
+☐ Import job descriptions from popular job websites using browser extensions
+
+Setting
+☐ Load setting file at the start of the application
+☐ Include width and height in setting
+☐ Save settings
+
+About
+☐ Include personal information and portfolio link
+☐ Include version of the app
+☐ Include how to give feedback
+
+Archive:
+  ✔ Create new job status @started(25-04-15 16:56) @done(25-04-15 16:56) @lasted(23s)
+  ✔ Update job status @started(25-04-15 16:56) @done(25-04-15 16:56) @lasted(31s)
+  ✔ Delete job status @started(25-04-15 16:56) @done(25-04-15 16:56) @lasted(41s)
+  ✔ Retrieve job status @started(25-04-15 16:56) @done(25-04-15 16:56) @lasted(49s)
+  ✔ Job status UI @started(25-04-15 16:57) @done(25-04-15 16:57) @lasted(1s)
+  ✔ Set up drizzle @started(25-04-05 18:20) @done(25-04-15 16:54) @lasted(1w2d22h34m5s)
+  ✔ Write drizzle schema @started(25-04-15 16:55) @done(25-04-15 16:55) @lasted(29s)
+  ✔ Set up database object and create db file @started(25-04-15 16:55) @done(25-04-15 16:55) @lasted(32s)
