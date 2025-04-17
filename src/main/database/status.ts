@@ -12,7 +12,7 @@ export const statusDb = {
   create: async (newStatus: NewStatus) => {
     try {
       const parsed = newStatusSchema.parse(newStatus);
-      const created = await db.status.create({ data: parsed });
+      const created = await db.status.create({ data: { name: parsed.name, color: parsed.color } });
 
       if (!created.statusId) {
         throw new Error("Failed to create status.");

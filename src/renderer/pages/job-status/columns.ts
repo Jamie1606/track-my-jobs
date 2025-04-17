@@ -16,7 +16,7 @@ export const getColumns = (page: number, rowCount: number): ColumnDef<JobStatus>
     header: "Status Name",
   },
   {
-    header: "badge",
+    header: "Badge",
     cell: ({ row }) => row.original.badge,
   },
   {

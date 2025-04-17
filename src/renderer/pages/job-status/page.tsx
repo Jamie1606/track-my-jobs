@@ -33,7 +33,7 @@ const JobStatusPage = () => {
     return data.map((item) => {
       return {
         ...item,
-        badge: <Badge style={{backgroundColor: item.color, color: getContrastTextColor(item.color)}}>{item.name}</Badge>,
+        badge: <Badge className="font-semibold lowercase" style={{backgroundColor: "#" + item.color, color: getContrastTextColor(item.color)}}>{item.name}</Badge>,
         action: (
           <div className="flex items-center gap-x-2 justify-center">
             <JobStatusEditForm setRefresh={setRefresh} editID={item.statusId} />
