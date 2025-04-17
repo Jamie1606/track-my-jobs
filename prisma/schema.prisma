@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../src/prisma-generated"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Status {
+  statusId   Int      @id @default(autoincrement())
+  name       String   @unique
+  color      String   @default("000000")
+  createdAt  DateTime @default(now())
+
+  jobStatusHistory JobStatusHistory[]
+}
+
+model OfficeType {
+  officeTypeId Int      @id @default(autoincrement())
+  name         String   @unique
+  createdAt    DateTime @default(now())
+
+  jobs         Job[]
+}
+
+model Employer {
+  employerId Int      @id @default(autoincrement())
+  name       String
+  createdAt  DateTime @default(now())
+
+  people     People[]
+  jobs       Job[]
+}
+
+model ContactType {
+  contactTypeId Int      @id @default(autoincrement())
+  name          String   @unique
+  createdAt     DateTime @default(now())
+
+  people        People[]
+}
+
+model People {
+  peopleId      Int      @id @default(autoincrement())
+  name          String
+  email         String?  @unique
+  phone         String?
+  url           String?
+  note          String?
+  createdAt     DateTime @default(now())
+  employerId    Int?
+  contactTypeId Int?
+
+  employer      Employer?     @relation(fields: [employerId], references: [employerId])
+  contactType   ContactType?  @relation(fields: [contactTypeId], references: [contactTypeId])
+  referredJobs  Job[]         @relation("Referrer")
+}
+
+model Job {
+  jobId         Int      @id @default(autoincrement())
+  location      String?
+  jobDescription String?
+  link          String?
+  note          String?
+  resume        Bytes?
+  coverLetter   Bytes?
+  createdAt     DateTime @default(now())
+  referrerId    Int?
+  officeTypeId  Int?
+  employerId    Int?
+
+  referrer      People?     @relation("Referrer", fields: [referrerId], references: [peopleId])
+  officeType    OfficeType? @relation(fields: [officeTypeId], references: [officeTypeId])
+  employer      Employer?   @relation(fields: [employerId], references: [employerId])
+  statusHistory JobStatusHistory[]
+  tasks         Task[]
+}
+
+model JobStatusHistory {
+  historyId Int      @id @default(autoincrement())
+  note      String?
+  createdAt DateTime @default(now())
+  jobId     Int?
+  statusId  Int?
+
+  job       Job?    @relation(fields: [jobId], references: [jobId])
+  status    Status? @relation(fields: [statusId], references: [statusId])
+}
+
+model Task {
+  taskId    Int      @id @default(autoincrement())
+  name      String
+  dueDate   DateTime?
+  completed Boolean  @default(false)
+  note      String?
+  createdAt DateTime @default(now())
+  jobId     Int?
+
+  job       Job?     @relation(fields: [jobId], references: [jobId])
+}

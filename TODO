@@ -1,6 +1,9 @@
 Dashboard
 ☐ Show overview of current information with graphs and charts
 
+Job Status
+☐ Add customised color to job status (optional)
+
 Job Applications
 ☐ Show list table for all job applications with some filter/pagination @started(25-04-15 16:59)
 ☐ Form to insert new job application (including tailored resume and cover letter)

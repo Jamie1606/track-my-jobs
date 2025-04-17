@@ -18,7 +18,7 @@ const RootLayout = () => {
       <div className="flex flex-col h-full w-[230px] shadow-lg">
         <div className="flex flex-col min-h-0 overflow-y-auto p-2 gap-y-2">
           <SidebarItem url={URL.DASHBOARD} label="Dashboard" icon={DashboardIcon} />
-          <SidebarItem url={URL.JOB} label="Jobs" icon={WorkIcon} noti={11} />
+          <SidebarItem url={URL.JOB} label="Jobs" icon={WorkIcon} />
           <SidebarItem url={URL.PEOPLE} label="People" icon={PersonIcon} />
           <SidebarItem url={URL.TASK} label="Tasks" icon={TaskIcon} />
           <SidebarItem url={URL.ARCHIVE} label="Archive" icon={ArchiveIcon} />

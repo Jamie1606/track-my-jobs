@@ -6,6 +6,8 @@ import { getColumns, JobStatus } from "./columns";
 import JobStatusForm from "./job-status-form";
 import JobStatusEditForm from "./job-status-edit-form";
 import DeleteDialog from "@/components/shared/delete-dialog";
+import { Badge } from "@/components/ui/badge";
+import { cn, getContrastTextColor } from "@/lib/utils";
 
 const JobStatusPage = () => {
   const [data, setData] = useState<JobStatus[]>([]);
@@ -31,6 +33,7 @@ const JobStatusPage = () => {
     return data.map((item) => {
       return {
         ...item,
+        badge: <Badge style={{backgroundColor: item.color, color: getContrastTextColor(item.color)}}>{item.name}</Badge>,
         action: (
           <div className="flex items-center gap-x-2 justify-center">
             <JobStatusEditForm setRefresh={setRefresh} editID={item.statusId} />
