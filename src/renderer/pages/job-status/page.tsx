@@ -19,7 +19,7 @@ const JobStatusPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const deleteStatus = async (statusID: number) => {
-    const res = await window.StatusAPI.deleteStatus(statusID);
+    const res = await window.StatusAPI.delete(statusID);
     if (res.success) {
       showToast("Job status deleted successfully", "success");
       return true;
@@ -46,7 +46,7 @@ const JobStatusPage = () => {
 
   const getList = async () => {
     const offset = (page - 1) * 10;
-    const res = await window.StatusAPI.getStatusList(search.trim(), limit, offset);
+    const res = await window.StatusAPI.getList(search.trim(), limit, offset);
     if (res.success) {
       setData(formatData(res.data));
     } else {
@@ -55,7 +55,7 @@ const JobStatusPage = () => {
   };
 
   const getCount = async () => {
-    const res = await window.StatusAPI.getStatusCount(search.trim());
+    const res = await window.StatusAPI.getCount(search.trim());
     if (res.success) {
       setTotal(res.data);
     } else {

@@ -34,7 +34,7 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
     }
 
     try {
-      const res: APIResponse<number> = await window.StatusAPI.createNewStatus({ name: trimmedName });
+      const res: APIResponse<number> = await window.StatusAPI.create({ name: trimmedName, color: "000000" });
 
       if (res.success) {
         showToast("Job status created successfully", "success");

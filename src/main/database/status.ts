@@ -1,57 +1,61 @@
-import { eq, like } from "drizzle-orm";
 import { db } from "./db";
-import { type NewStatus, type Status, status } from "./schema";
 import { newStatusSchema } from "../zod-schema/status";
 import { ZodError } from "zod";
+import { NewStatus } from "./db-types";
 
-/**
- * Job Status database operations
- */
 export const statusDb = {
   /**
    * Create a new job status
    * @param newStatus The status data to insert
    * @returns The created status ID
    */
-  createNewStatus: async (newStatus: NewStatus): Promise<number> => {
+  create: async (newStatus: NewStatus) => {
     try {
       const parsed = newStatusSchema.parse(newStatus);
-      const result = await db.insert(status).values(parsed).returning({ insertedID: status.statusId });
+      const created = await db.status.create({ data: parsed });
 
-      if (!result.length || !result[0].insertedID) {
+      if (!created.statusId) {
         throw new Error("Failed to create status.");
       }
 
-      return result[0].insertedID;
+      return created.statusId;
     } catch (error) {
       if (error instanceof ZodError) {
         const firstError = error.errors[0]?.message;
         throw new Error(firstError || "Invalid input.");
-      } else throw error;
+      } else {
+        throw error;
+      }
     }
   },
 
   /**
    * Update job status
    * @param name The new status name
+   * @param color The new status color
    * @param statusID The status ID to update
    * @returns The updated status ID
    */
-  updateStatus: async (name: string, statusID: number): Promise<number> => {
+  update: async (name: string, statusID: number, color: string) => {
     try {
-      const parsed = newStatusSchema.parse({ name });
-      const result = await db.update(status).set({ name: parsed.name }).where(eq(status.statusId, statusID)).returning({ updatedID: status.statusId });
+      const parsed = newStatusSchema.parse({ name, color });
+      const updated = await db.status.update({
+        where: { statusId: statusID },
+        data: { name: parsed.name, color: parsed.color },
+      });
 
-      if (!result.length || result[0].updatedID !== statusID) {
+      if (!updated.statusId || updated.statusId !== statusID) {
         throw new Error("Failed to update status.");
       }
 
-      return result[0].updatedID;
+      return updated.statusId;
     } catch (error) {
       if (error instanceof ZodError) {
         const firstError = error.errors[0]?.message;
         throw new Error(firstError || "Invalid input.");
-      } else throw error;
+      } else {
+        throw error;
+      }
     }
   },
 
@@ -60,15 +64,15 @@ export const statusDb = {
    * @param statusID The status ID to delete
    * @returns The deleted status ID
    */
-  deleteStatus: async (statusID: number): Promise<number> => {
+  delete: async (statusID: number) => {
     try {
-      const result = await db.delete(status).where(eq(status.statusId, statusID)).returning({ deleteID: status.statusId });
+      const deleted = await db.status.delete({ where: { statusId: statusID } });
 
-      if (!result.length || result[0].deleteID !== statusID) {
+      if (!deleted.statusId || deleted.statusId !== statusID) {
         throw new Error("Failed to delete status.");
       }
 
-      return result[0].deleteID;
+      return deleted.statusId;
     } catch (error) {
       throw error;
     }
@@ -76,22 +80,32 @@ export const statusDb = {
 
   /**
    * Get a list of job statuses
-   * @param offset The offset for pagination
-   * @param limit  The limit for pagination
    * @param search The search query
+   * @param limit  The limit for pagination
+   * @param offset The offset for pagination
    * @returns A list of job statuses
    */
-  getStatusList: async (search: string, limit: number, offset: number): Promise<Status[]> => {
-    return await db
-      .select()
-      .from(status)
-      .where(search ? like(status.name, `%${search.trim()}%`) : undefined)
-      .limit(limit)
-      .offset(offset);
+  getList: async (search: string, limit: number, offset: number) => {
+    return await db.status.findMany({
+      where: search ? { name: { contains: search.trim() } } : undefined,
+      skip: offset,
+      take: limit,
+      orderBy: { createdAt: "asc" },
+    });
   },
 
-  getStatusCount: async (search: string): Promise<number> => {
-    return await db.$count(status, search ? like(status.name, `%${search.trim()}%`) : undefined);
+  /**
+   * Get total job status count
+   * @param search THe search query
+   * @returns Total job status count
+   */
+  getCount: async (search: string) => {
+    return await db.status.count({
+      where: search ? { name: { contains: search.trim() } } : undefined,
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
   },
 
   /**
@@ -99,13 +113,15 @@ export const statusDb = {
    * @param statusID The status ID to retrieve
    * @returns Job Status
    */
-  getStatusByID: async (statusID: number): Promise<Status> => {
-    const result = await db.selectDistinct().from(status).where(eq(status.statusId, statusID));
+  getById: async (statusID: number) => {
+    const result = await db.status.findUnique({
+      where: { statusId: statusID },
+    });
 
-    if (result.length !== 1) {
+    if (!result) {
       throw new Error("No status found");
     }
 
-    return result[0];
+    return result;
   },
 };

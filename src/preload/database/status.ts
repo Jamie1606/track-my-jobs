@@ -1,14 +1,13 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { Status, type NewStatus } from "../../main/database/schema";
-import { APIResponse } from "interface";
+import { NewStatus } from "../../main/database/db-types";
 
 contextBridge.exposeInMainWorld("StatusAPI", {
-  createNewStatus: (newStatus: NewStatus): Promise<APIResponse<number>> => ipcRenderer.invoke("status:create", newStatus),
-  getStatusList: (search: string, limit: number, offset: number): Promise<APIResponse<Status[]>> => ipcRenderer.invoke("status:getList", search, limit, offset),
-  getStatusByID: (statusID: number): Promise<APIResponse<Status>> => ipcRenderer.invoke("status:getByID", statusID),
-  getStatusCount: (search: string): Promise<APIResponse<number>> => ipcRenderer.invoke("status:getCount", search),
-  updateStatus: (name: string, statusID: number): Promise<APIResponse<number>> => ipcRenderer.invoke("status:update", name, statusID),
-  deleteStatus: (statusID: number): Promise<APIResponse<number>> => ipcRenderer.invoke("status:delete", statusID),
+  create: (newStatus: NewStatus) => ipcRenderer.invoke("status:create", newStatus),
+  update: (name: string, statusID: number, color: string) => ipcRenderer.invoke("status:update", name, statusID, color),
+  delete: (statusID: number) => ipcRenderer.invoke("status:delete", statusID),
+  getList: (search: string, limit: number, offset: number) => ipcRenderer.invoke("status:getList", search, limit, offset),
+  getById: (statusID: number) => ipcRenderer.invoke("status:getById", statusID),
+  getCount: (search: string) => ipcRenderer.invoke("status:getCount", search),
 });
 
 export {};

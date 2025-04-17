@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Status } from "../../../main/database/schema";
+import { Status } from "../../../main/database/db-types";
 
 export type JobStatus = Status & {
   badge?: React.ReactNode;

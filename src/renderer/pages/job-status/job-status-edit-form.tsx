@@ -16,7 +16,7 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
   };
 
   const checkDataExist = async () => {
-    const result = await window.StatusAPI.getStatusByID(editID);
+    const result = await window.StatusAPI.getById(editID);
     if (result.success) {
       setName(result.data.name);
       return true;
@@ -44,7 +44,7 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
     }
 
     try {
-      const res = await window.StatusAPI.updateStatus(trimmedName, editID);
+      const res = await window.StatusAPI.update(trimmedName, editID, "000000");
       
       if (res.success) {
         showToast("Job status updated successfully", "success");

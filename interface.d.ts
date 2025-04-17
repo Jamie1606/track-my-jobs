@@ -1,4 +1,4 @@
-import { NewStatus, Status } from "./src/main/database/schema";
+import { NewStatus, Status } from "src/main/database/db-types";
 import { SettingRecords } from "./src/main/records";
 
 export type APISuccess<T> = {
@@ -14,12 +14,12 @@ export type APIError = {
 export type APIResponse<T> = APISuccess<T> | APIError;
 
 export interface IStatusAPI {
-  createNewStatus: (newStatus: NewStatus) => Promsie<APIResponse<number>>;
-  getStatusList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
-  getStatusByID: (statusID: number) => Promise<APIResponse<Status>>;
-  getStatusCount: (search: string) => Promise<APIResponse<number>>;
-  updateStatus: (name: string, statusID: number) => Promise<APIResponse<number>>;
-  deleteStatus: (statusID: number) => Promise<APIResponse<number>>;
+  create: (newStatus: NewStatus) => Promsie<APIResponse<number>>;
+  update: (name: string, statusID: number, color: string) => Promise<APIResponse<number>>;
+  delete: (statusID: number) => Promise<APIResponse<number>>;
+  getList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
+  getById: (statusID: number) => Promise<APIResponse<Status>>;
+  getCount: (search: string) => Promise<APIResponse<number>>;
 }
 
 declare global {
