@@ -5,6 +5,7 @@ import { loadSettings } from "./services/file-services";
 import { settings } from "./records";
 import { deleteOldLogs } from "./services/log-services";
 import "./ipc/status-ipc";
+import "./ipc/job-ipc";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {

@@ -1,4 +1,4 @@
-import { NewStatus, Status } from "src/main/database/db-types";
+import { JobList, NewStatus, Status } from "src/main/database/db-types";
 import { SettingRecords } from "./src/main/records";
 
 export type APISuccess<T> = {
@@ -22,9 +22,15 @@ export interface IStatusAPI {
   getCount: (search: string) => Promise<APIResponse<number>>;
 }
 
+export interface IJobAPI {
+  getList: (search: string, limit: number, offset: number) => Promise<APIResponse<JobList[]>>;
+  getCount: (search: string) => Promise<APIResponse<number>>;
+}
+
 declare global {
   interface Window {
     StatusAPI: IStatusAPI;
+    JobAPI: IJobAPI;
   }
 }
 

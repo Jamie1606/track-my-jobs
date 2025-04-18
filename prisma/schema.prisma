@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "../src/prisma-generated"
+  output   = "../src/prisma-generated"
 }
 
 datasource db {
@@ -9,10 +9,10 @@ datasource db {
 }
 
 model Status {
-  statusId   Int      @id @default(autoincrement())
-  name       String   @unique
-  color      String   @default("000000")
-  createdAt  DateTime @default(now())
+  statusId  Int      @id @default(autoincrement())
+  name      String   @unique
+  color     String   @default("000000")
+  createdAt DateTime @default(now())
 
   jobStatusHistory JobStatusHistory[]
 }
@@ -22,7 +22,7 @@ model OfficeType {
   name         String   @unique
   createdAt    DateTime @default(now())
 
-  jobs         Job[]
+  jobs Job[]
 }
 
 model Employer {
@@ -30,8 +30,8 @@ model Employer {
   name       String
   createdAt  DateTime @default(now())
 
-  people     People[]
-  jobs       Job[]
+  people People[]
+  jobs   Job[]
 }
 
 model ContactType {
@@ -39,7 +39,7 @@ model ContactType {
   name          String   @unique
   createdAt     DateTime @default(now())
 
-  people        People[]
+  people People[]
 }
 
 model People {
@@ -53,27 +53,28 @@ model People {
   employerId    Int?
   contactTypeId Int?
 
-  employer      Employer?     @relation(fields: [employerId], references: [employerId])
-  contactType   ContactType?  @relation(fields: [contactTypeId], references: [contactTypeId])
-  referredJobs  Job[]         @relation("Referrer")
+  employer     Employer?    @relation(fields: [employerId], references: [employerId])
+  contactType  ContactType? @relation(fields: [contactTypeId], references: [contactTypeId])
+  referredJobs Job[]        @relation("Referrer")
 }
 
 model Job {
-  jobId         Int      @id @default(autoincrement())
-  location      String?
+  jobId          Int      @id @default(autoincrement())
+  title          String
+  location       String?
   jobDescription String?
-  link          String?
-  note          String?
-  resume        Bytes?
-  coverLetter   Bytes?
-  createdAt     DateTime @default(now())
-  referrerId    Int?
-  officeTypeId  Int?
-  employerId    Int?
+  link           String?
+  note           String?
+  resume         Bytes?
+  coverLetter    Bytes?
+  createdAt      DateTime @default(now())
+  referrerId     Int?
+  officeTypeId   Int?
+  employerId     Int?
 
-  referrer      People?     @relation("Referrer", fields: [referrerId], references: [peopleId])
-  officeType    OfficeType? @relation(fields: [officeTypeId], references: [officeTypeId])
-  employer      Employer?   @relation(fields: [employerId], references: [employerId])
+  referrer      People?            @relation("Referrer", fields: [referrerId], references: [peopleId])
+  officeType    OfficeType?        @relation(fields: [officeTypeId], references: [officeTypeId])
+  employer      Employer?          @relation(fields: [employerId], references: [employerId])
   statusHistory JobStatusHistory[]
   tasks         Task[]
 }
@@ -85,18 +86,18 @@ model JobStatusHistory {
   jobId     Int?
   statusId  Int?
 
-  job       Job?    @relation(fields: [jobId], references: [jobId])
-  status    Status? @relation(fields: [statusId], references: [statusId])
+  job    Job?    @relation(fields: [jobId], references: [jobId])
+  status Status? @relation(fields: [statusId], references: [statusId])
 }
 
 model Task {
-  taskId    Int      @id @default(autoincrement())
+  taskId    Int       @id @default(autoincrement())
   name      String
   dueDate   DateTime?
-  completed Boolean  @default(false)
+  completed Boolean   @default(false)
   note      String?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   jobId     Int?
 
-  job       Job?     @relation(fields: [jobId], references: [jobId])
+  job Job? @relation(fields: [jobId], references: [jobId])
 }

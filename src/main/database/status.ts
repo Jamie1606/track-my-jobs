@@ -102,9 +102,6 @@ export const statusDb = {
   getCount: async (search: string) => {
     return await db.status.count({
       where: search ? { name: { contains: search.trim() } } : undefined,
-      orderBy: {
-        createdAt: "asc",
-      },
     });
   },
 

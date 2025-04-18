@@ -1,47 +1,38 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Job } from "../../../main/database/schema";
+import { JobList } from "src/main/database/db-types";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type JobApplication = Job & {
-  jobId: number;
-  location: string;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+export type JobApplication = JobList & {
   action: React.ReactNode;
+  statusBadge: React.ReactNode;
 };
 
-export const columns: ColumnDef<JobApplication>[] = [
+export const getColumns = (page: number, rowCount: number): ColumnDef<JobApplication>[] => [
   {
-    cell: ({ row }) => Number(row.id) + 1 + ".",
+    cell: ({ row }) => Number(row.id) + 1 + (page - 1) * rowCount + ".",
     header: "No.",
   },
   {
-    accessorKey: "location",
+    header: "Role",
+    accessorKey: "title",
+  },
+  {
+    header: "Employer",
+    accessorKey: "employerName",
+  },
+  {
+    header: "Office Type",
+    accessorKey: "officeTypeName",
+  },
+  {
     header: "Location",
+    accessorKey: "location",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    header: "Status",
+    cell: ({ row }) => row.original.statusBadge,
   },
   {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    cell: ({ row }) => row.original.action,
+    cell: ({ row }) => (row.original.action ? row.original.action : "-"),
     header: "Action",
   },
 ];

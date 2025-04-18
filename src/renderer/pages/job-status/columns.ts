@@ -2,8 +2,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Status } from "../../../main/database/db-types";
 
 export type JobStatus = Status & {
-  badge?: React.ReactNode;
-  action?: React.ReactNode;
+  badge: React.ReactNode;
+  action: React.ReactNode;
 };
 
 export const getColumns = (page: number, rowCount: number): ColumnDef<JobStatus>[] => [
