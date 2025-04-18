@@ -11,6 +11,7 @@ interface JobStatusFormProps {
 export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
+  const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
     setName("");
@@ -37,7 +38,9 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
     }
 
     try {
+      setLoading(true);
       const res: APIResponse<number> = await window.StatusAPI.create({ name: trimmedName, color: selectedColor });
+      setLoading(false);
 
       if (res.success) {
         showToast("Job status created successfully", "success");
@@ -48,6 +51,7 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
       }
     } catch (error) {
       showToast("Unexpected error occurred.", "error");
+      setLoading(false);
       return false;
     }
   };
@@ -58,12 +62,12 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
         <label htmlFor="name" className="text-[15px] font-medium">
           Status Name
         </label>
-        <Input id="name" className="mt-1" maxLength={100} required value={name} onChange={(e) => setName(e.target.value)} />
+        <Input disabled={loading} id="name" className="mt-1" maxLength={100} value={name} onChange={(e) => setName(e.target.value)} />
 
         <label htmlFor="color" className="mt-4 text-[15px] font-medium">
           Status Color
         </label>
-        <Input id="color" type="color" className="mt-1" value={color} onChange={(e) => setColor(e.target.value)} required />
+        <Input disabled={loading} id="color" type="color" className="mt-1" value={color} onChange={(e) => setColor(e.target.value)} />
       </div>
     </AddDialog>
   );

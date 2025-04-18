@@ -8,5 +8,6 @@ ipcMain.handle("status:delete", handleIPC(statusDb.delete));
 ipcMain.handle("status:getList", handleIPC(statusDb.getList));
 ipcMain.handle("status:getById", handleIPC(statusDb.getById));
 ipcMain.handle("status:getCount", handleIPC(statusDb.getCount));
+ipcMain.handle("status:getAll", handleIPC(statusDb.getAll));
 
 export {};

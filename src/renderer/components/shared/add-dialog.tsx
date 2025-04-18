@@ -54,7 +54,9 @@ export default function AddDialog({ children, title, description, buttonSize = "
         <DialogDescription className="text-[15px]">{description}</DialogDescription>
         <>{children}</>
         <DialogFooter>
-          <Button onClick={handleSubmit}>{loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Save</span>}</Button>
+          <Button disabled={loading} onClick={handleSubmit}>
+            {loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Save</span>}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

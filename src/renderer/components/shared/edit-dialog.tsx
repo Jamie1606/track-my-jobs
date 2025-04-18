@@ -67,7 +67,7 @@ export default function EditDialog({ children, title, description, buttonSize = 
         <DialogDescription className="text-[15px]">{description}</DialogDescription>
         <>{children}</>
         <DialogFooter>
-          <Button variant="edit" onClick={handleSubmit}>
+          <Button disabled={loading} variant="edit" onClick={handleSubmit}>
             {loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Edit</span>}
           </Button>
         </DialogFooter>

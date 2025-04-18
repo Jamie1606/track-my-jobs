@@ -62,7 +62,7 @@ export default function DeleteDialog({ title, message, buttonSize = "sm", onSubm
         <DialogTitle className="text-[20px] font-bold">{title}</DialogTitle>
         <DialogDescription className="text-[15px]">{renderMessage(message)}</DialogDescription>
         <DialogFooter>
-          <Button variant="delete" onClick={handleDelete}>
+          <Button disabled={loading} variant="delete" onClick={handleDelete}>
             {loading ? <LoadingIcon width={20} height={20} fill="#f8fafc" className="animate-spin" /> : <span>Delete</span>}
           </Button>
         </DialogFooter>

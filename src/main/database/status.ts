@@ -121,4 +121,12 @@ export const statusDb = {
 
     return result;
   },
+
+  /**
+   * Get all job status
+   * @returns A list of job status
+   */
+  getAll: async () => {
+    return await db.status.findMany();
+  },
 };

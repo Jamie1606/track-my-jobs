@@ -53,6 +53,12 @@ const JobPage = () => {
   }, []);
 
   useEffect(() => {
+    if (!loading) {
+      getList();
+    }
+  }, [page, limit]);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       Promise.all([getList(), getCount()]).finally(() => {
         setLoading(false);
@@ -77,7 +83,7 @@ const JobPage = () => {
           </div>
 
           {/* add new job application */}
-          <JobForm />
+          <JobForm setRefresh={setRefresh} />
         </div>
 
         {/* job contents */}

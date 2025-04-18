@@ -11,6 +11,7 @@ interface JobStatusEditFormProps {
 export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditFormProps) {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
+  const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
     setName("");
@@ -48,7 +49,9 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
     }
 
     try {
+      setLoading(true);
       const res = await window.StatusAPI.update(trimmedName, editID, selectedColor);
+      setLoading(false);
 
       if (res.success) {
         showToast("Job status updated successfully", "success");
@@ -69,12 +72,12 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
         <label htmlFor="status-name" className="text-[15px] font-medium">
           Status Name
         </label>
-        <Input id="status-name" className="mt-1" maxLength={100} required value={name} onChange={(e) => setName(e.target.value)} />
+        <Input disabled={loading} id="status-name" className="mt-1" maxLength={100} required value={name} onChange={(e) => setName(e.target.value)} />
 
         <label htmlFor="color" className="mt-4 text-[15px] font-medium">
           Status Color
         </label>
-        <Input id="color" type="color" className="mt-1" value={color} onChange={(e) => setColor(e.target.value)} required />
+        <Input disabled={loading} id="color" type="color" className="mt-1" value={color} onChange={(e) => setColor(e.target.value)} required />
       </div>
     </EditDialog>
   );

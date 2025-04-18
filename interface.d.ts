@@ -20,6 +20,7 @@ export interface IStatusAPI {
   getList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
   getById: (statusID: number) => Promise<APIResponse<Status>>;
   getCount: (search: string) => Promise<APIResponse<number>>;
+  getAll: () => Promise<APIResponse<Status[]>>;
 }
 
 export interface IJobAPI {
