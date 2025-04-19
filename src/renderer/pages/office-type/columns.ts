@@ -1,12 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Status } from "../../../main/database/db-types";
+import { OfficeType } from "../../../main/database/db-types";
 
-export type JobStatus = Status & {
-  badge: React.ReactNode;
+export type OfficeTypeList = OfficeType & {
   action: React.ReactNode;
 };
 
-export const getColumns = (page: number, rowCount: number): ColumnDef<JobStatus>[] => [
+export const getColumns = (page: number, rowCount: number): ColumnDef<OfficeTypeList>[] => [
   {
     cell: ({ row }) => Number(row.id) + 1 + (page - 1) * rowCount + ".",
     header: "No.",
@@ -14,10 +13,6 @@ export const getColumns = (page: number, rowCount: number): ColumnDef<JobStatus>
   {
     accessorKey: "name",
     header: "Name",
-  },
-  {
-    header: "Badge",
-    cell: ({ row }) => row.original.badge,
   },
   {
     cell: ({ row }) => (row.original.action ? row.original.action : "-"),

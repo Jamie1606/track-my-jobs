@@ -44,6 +44,7 @@ import AboutPage from "./pages/about/page";
 import useSettingStore from "./state/setting-store";
 import JobStatusPage from "./pages/job-status/page";
 import { Toaster } from "./components/ui/sonner";
+import OfficeTypePage from "./pages/office-type/page";
 
 const settingStore = useSettingStore.getState();
 
@@ -68,6 +69,7 @@ ReactDOM.createRoot(root).render(
           <Route path={URL.CALENDAR} element={<CalendarPage />} />
           <Route path={URL.ARCHIVE} element={<ArchivePage />} />
           <Route path={URL.JOB_STATUS} element={<JobStatusPage />} />
+          <Route path={URL.OFFICE_TYPE} element={<OfficeTypePage />} />
           <Route path={URL.EXTENSION} element={<ExtensionPage />} />
           <Route path={URL.SETTING} element={<SettingPage />} />
           <Route path={URL.ABOUT} element={<AboutPage />} />

@@ -3,3 +3,4 @@
 
 import "./database/status";
 import "./database/job";
+import "./database/office-type";

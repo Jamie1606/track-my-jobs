@@ -4,6 +4,8 @@ export type { Status, OfficeType, Employer, ContactType, People, Job, JobStatusH
 
 export type NewStatus = Omit<Status, "statusId" | "createdAt">;
 
+export type NewOfficeType = Omit<OfficeType, "officeTypeId" | "createdAt">;
+
 export type JobList = Omit<Job, "referrerId" | "resume" | "coverLetter"> & {
     employerName: string | undefined;
     officeTypeName: string | undefined;

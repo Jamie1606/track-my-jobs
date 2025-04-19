@@ -6,6 +6,7 @@ const URL = {
   ARCHIVE: "/archive",
   CALENDAR: "/calendar",
   JOB_STATUS: "/job-status",
+  OFFICE_TYPE: "/office-type",
   EXTENSION: "/extension",
   SETTING: "/setting",
   ABOUT: "/about",

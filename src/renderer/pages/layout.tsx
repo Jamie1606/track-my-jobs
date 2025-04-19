@@ -5,6 +5,7 @@ import CalendarIcon from "@/icons/calendar-icon";
 import DashboardIcon from "@/icons/dashbard-icon";
 import ExtensionIcon from "@/icons/extension-icon";
 import InfoIcon from "@/icons/info-icon";
+import OfficeTypeIcon from "@/icons/office-type-icon";
 import PersonIcon from "@/icons/person-icon";
 import SettingIcon from "@/icons/setting-icon";
 import StepIcon from "@/icons/step-icon";
@@ -24,6 +25,7 @@ const RootLayout = () => {
           <SidebarItem url={URL.ARCHIVE} label="Archive" icon={ArchiveIcon} />
           <SidebarItem url={URL.CALENDAR} label="Calendar" icon={CalendarIcon} />
           <SidebarItem url={URL.JOB_STATUS} label="Job Status" icon={StepIcon} />
+          <SidebarItem url={URL.OFFICE_TYPE} label="Office Type" icon={OfficeTypeIcon} />
           <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} />
         </div>
         <div className="mt-auto flex flex-col p-2 gap-y-2 border-t">
